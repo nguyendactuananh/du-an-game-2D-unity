@@ -29966,7 +29966,7 @@ MonoBehaviour:
   banKinhTanCong: 0.5
   layerQuaiVat:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   satThuongVukhi: 20
   anim: {fileID: 0}
   kiemAnim: {fileID: 617040780}
@@ -30148,6 +30148,7 @@ GameObject:
   - component: {fileID: 387941314}
   - component: {fileID: 387941313}
   - component: {fileID: 387941317}
+  - component: {fileID: 387941318}
   m_Layer: 6
   m_Name: QuaiVat
   m_TagString: Untagged
@@ -30323,7 +30324,29 @@ MonoBehaviour:
   layerMatDat:
     serializedVersion: 2
     m_Bits: 8
-  anim: {fileID: 0}
+  anim: {fileID: 387941318}
+--- !u!95 &387941318
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387941312}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3763323218fe3354497e8e1a66b5f6c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &443323376
 GameObject:
   m_ObjectHideFlags: 0

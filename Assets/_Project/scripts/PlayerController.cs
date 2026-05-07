@@ -142,7 +142,7 @@ public class DieuKhienNhanVat : MonoBehaviour
     private void XuLyTanCong()
     {
         // Lắng nghe phím F thay vì chuột trái
-        if (Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.jKey.wasPressedThisFrame)
         {
             // 1. Kích hoạt hoạt hình của NHÂN VẬT
             if (anim != null)

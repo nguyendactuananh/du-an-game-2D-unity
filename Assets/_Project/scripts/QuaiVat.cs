@@ -67,11 +67,14 @@ public class QuaiVat : MonoBehaviour
         mauHienTai -= satThuong;
         Debug.Log("Chém trúng! Quái vật còn: " + mauHienTai + " máu.");
 
-        if (anim != null) anim.SetTrigger("BiThuong");
-
         if (mauHienTai <= 0)
         {
-            Chet();
+            Chet(); // Nếu hết máu thì chết luôn
+        }
+        else
+        {
+            // CHỈ phát hoạt hình Bị Thương nếu quái vật VẪN CÒN SỐNG
+            if (anim != null) anim.SetTrigger("BiThuong");
         }
     }
 
