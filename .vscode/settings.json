@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "game_diem_A.slnx"
+    "dotnet.defaultSolution": "game_diem_A.slnx",
+    "dotnet.preferCSharpExtension": true
 }
