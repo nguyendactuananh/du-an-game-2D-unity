@@ -29970,7 +29970,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   satThuongVukhi: 20
-  anim: {fileID: 0}
+  anim: {fileID: 203597145}
   kiemAnim: {fileID: 617040780}
 --- !u!4 &203597141 stripped
 Transform:
@@ -30328,7 +30328,7 @@ MonoBehaviour:
     m_Bits: 8
   nguoiChoi: {fileID: 0}
   banKinhPhatHien: 2
-  banKinhTanCong: 0.5
+  banKinhTanCong: 0.8
   satThuongDanh: 15
   thoiGianHoiDon: 2
   anim: {fileID: 387941318}
