@@ -29954,6 +29954,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38dd18a8e138fd4b891ce37aa5ad4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  mauToiDa: 100
+  mauHienTai: 0
   tocDo: 5
   lucNhay: 8
   isFacingRight: 1
@@ -30324,6 +30326,11 @@ MonoBehaviour:
   layerMatDat:
     serializedVersion: 2
     m_Bits: 8
+  nguoiChoi: {fileID: 0}
+  banKinhPhatHien: 2
+  banKinhTanCong: 0.5
+  satThuongDanh: 15
+  thoiGianHoiDon: 2
   anim: {fileID: 387941318}
 --- !u!95 &387941318
 Animator:
@@ -128396,6 +128403,10 @@ PrefabInstance:
     - target: {fileID: 4998470317231519910, guid: 4a0378adcf0680543b2f310e906a87bf, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998470317231519910, guid: 4a0378adcf0680543b2f310e906a87bf, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6511662556712695551, guid: 4a0378adcf0680543b2f310e906a87bf, type: 3}
       propertyPath: m_GravityScale

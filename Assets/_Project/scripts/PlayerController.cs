@@ -1,11 +1,12 @@
-// Dự án: Hành Trình Sương Mù (Misty Traveler)
-// Cập nhật: Hoàn thiện di chuyển, nhảy, tấn công, kết nối hoạt hình kiếm và gây sát thương quái vật
-
 using UnityEngine;
 using UnityEngine.InputSystem; 
 
 public class DieuKhienNhanVat : MonoBehaviour
 {
+    [Header("Chỉ số Sinh Tồn")]
+    public int mauToiDa = 100;
+    public int mauHienTai;
+
     [Header("Cấu hình di chuyển")]
     public float tocDo = 5f;
     public float lucNhay = 25f; 
@@ -24,8 +25,8 @@ public class DieuKhienNhanVat : MonoBehaviour
     public int satThuongVukhi = 20;      // Sát thương mỗi nhát chém
 
     [Header("Thành phần kết nối")]
-    public Animator anim;
-    public Animator kiemAnim;
+    public Animator anim;                // Hoạt hình của người chơi
+    public Animator kiemAnim;            // Hoạt hình của thanh kiếm
     private Rigidbody2D rb;
     
     // Biến lưu trữ
@@ -33,12 +34,18 @@ public class DieuKhienNhanVat : MonoBehaviour
 
     void Start()
     {
-        // Lấy Component tự động khi bắt đầu
+        // Khởi tạo đầy máu khi bắt đầu game
+        mauHienTai = mauToiDa;
+        
+        // Lấy Component tự động
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
+        // Nếu đã chết thì không cho phép điều khiển nữa, dừng các xử lý bên dưới
+        if (mauHienTai <= 0) return;
+
         // Phân chia logic rõ ràng theo từng hàm
         DocThongTinBanPhim();
         KiemTraChamDat();
@@ -50,6 +57,9 @@ public class DieuKhienNhanVat : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Nếu đã chết thì không di chuyển
+        if (mauHienTai <= 0) return;
+
         // FixedUpdate chuyên dùng để tính toán vật lý (Rigidbody)
         DiChuyenNhanVat();
     }
@@ -141,7 +151,7 @@ public class DieuKhienNhanVat : MonoBehaviour
 
     private void XuLyTanCong()
     {
-        // Lắng nghe phím F thay vì chuột trái
+        // Lắng nghe phím J để tấn công
         if (Keyboard.current != null && Keyboard.current.jKey.wasPressedThisFrame)
         {
             // 1. Kích hoạt hoạt hình của NHÂN VẬT
@@ -184,6 +194,47 @@ public class DieuKhienNhanVat : MonoBehaviour
         }
     }
 
+    // ================= HÀM BỊ QUÁI VẬT ĐÁNH ================= //
+    
+    public void NhanSatThuong(int satThuong)
+    {
+        mauHienTai -= satThuong;
+        Debug.Log("Người chơi bị đánh! Máu còn: " + mauHienTai);
+
+        if (mauHienTai <= 0)
+        {
+            Chet();
+        }
+        else
+        {
+            if (anim != null) anim.SetTrigger("BiThuong");
+        }
+    }
+
+    private void Chet()
+    {
+        Debug.Log("Game Over! Người chơi đã gục ngã.");
+        if (anim != null) anim.SetTrigger("Chet");
+
+        // Dừng mọi lực di chuyển đang có
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+        
+        // Tắt BoxCollider2D để quái không đánh vào cái xác nữa
+        Collider2D coll = GetComponent<Collider2D>();
+        if (coll != null)
+        {
+            coll.enabled = false;
+        }
+        
+        // Tắt script này đi để người chơi không thể bấm phím gì nữa
+        this.enabled = false; 
+    }
+
+    // ================= HÀM PHỤ TRỢ (VẼ HÌNH GIZMOS) ================= //
+    
     // Hàm phụ trợ giúp vẽ vòng tròn kiểm tra đất trong màn hình Scene để dễ căn chỉnh
     private void OnDrawGizmosSelected()
     {
