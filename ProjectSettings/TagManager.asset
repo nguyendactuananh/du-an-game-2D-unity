@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Bee_0
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - MatDat
+  - Water
+  - UI
+  - QuaiVat
+  - BauTroi
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: background
+    uniqueID: 3649836857
+    locked: 0
+  - name: midground
+    uniqueID: 1878518771
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Item - sky
+    uniqueID: 2472314333
+    locked: 0
+  - name: skyground
+    uniqueID: 2558313593
+    locked: 0
+  - name: ' ForeGround - sky'
+    uniqueID: 3229945737
+    locked: 0
+  m_RenderingLayers:
+  - Default
