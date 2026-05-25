@@ -1,24 +1,23 @@
 using UnityEngine;
 
-public class FlyEye : MonoBehaviour
+public class FlyEye : QuaiVat
 {
-    [Header("Stats")]
-    public int maxHP = 30;
-    private int currentHP;
-
     [Header("Movement")]
     public float speed = 2f;
 
     [Header("Random Patrol Area")]
-    public Vector2 areaSize = new Vector2(4f, 2f);
+    public Vector2 areaSize =
+        new Vector2(4f, 2f);
 
     private Vector2 startPosition;
+
     private Vector2 targetPosition;
 
     [Header("Detect Player")]
     public Transform player;
 
     public float detectRange = 5f;
+
     public float attackRange = 1.2f;
 
     [Header("Attack")]
@@ -28,31 +27,23 @@ public class FlyEye : MonoBehaviour
 
     private float attackTimer;
 
-    [Header("Layer")]
     public LayerMask playerLayer;
-
-    private Rigidbody2D rb;
-    private Animator anim;
 
     private bool facingRight = true;
 
-    private bool isDead = false;
-    private bool isAttacking = false;
-
-    void Start()
+    protected override void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        base.Start();
 
-        anim = GetComponent<Animator>();
-
-        currentHP = maxHP;
-
-        startPosition = transform.position;
+        startPosition =
+            transform.position;
 
         ChooseNewTarget();
 
         GameObject p =
-            GameObject.FindGameObjectWithTag("Player");
+            GameObject.FindGameObjectWithTag(
+                "Player"
+            );
 
         if (p != null)
         {
@@ -97,27 +88,20 @@ public class FlyEye : MonoBehaviour
         }
     }
 
-    // =========================
-    // RANDOM PATROL
-    // =========================
+    // ================= RANDOM PATROL ================= //
 
     void RandomPatrol()
     {
-        if (isAttacking) return;
+        Vector2 direction =
+            (
+                targetPosition -
+                (Vector2)transform.position
+            ).normalized;
 
-        Vector2 newPos =
-            Vector2.MoveTowards(
-                rb.position,
-                targetPosition,
-                speed * Time.fixedDeltaTime
-            );
+        rb.linearVelocity =
+            direction * speed;
 
-        rb.MovePosition(newPos);
-
-        UpdateDirection(
-            targetPosition.x -
-            transform.position.x
-        );
+        UpdateDirection(direction.x);
 
         if (
             Vector2.Distance(
@@ -146,45 +130,39 @@ public class FlyEye : MonoBehaviour
 
         targetPosition =
             startPosition +
-            new Vector2(randomX, randomY);
+            new Vector2(
+                randomX,
+                randomY
+            );
     }
 
-    // =========================
-    // CHASE PLAYER
-    // =========================
+    // ================= CHASE ================= //
 
     void ChasePlayer()
     {
-        if (isAttacking) return;
+        Vector2 direction =
+            (
+                player.position -
+                transform.position
+            ).normalized;
 
-        Vector2 newPos =
-            Vector2.MoveTowards(
-                rb.position,
-                player.position,
-                speed * Time.fixedDeltaTime
-            );
+        rb.linearVelocity =
+            direction * speed;
 
-        rb.MovePosition(newPos);
-
-        UpdateDirection(
-            player.position.x -
-            transform.position.x
-        );
+        UpdateDirection(direction.x);
     }
 
-    // =========================
-    // ATTACK
-    // =========================
+    // ================= ATTACK ================= //
 
     void Attack()
     {
-        rb.linearVelocity = Vector2.zero;
+        rb.linearVelocity =
+            Vector2.zero;
 
         if (attackTimer > 0) return;
 
-        attackTimer = attackCooldown;
-
-        isAttacking = true;
+        attackTimer =
+            attackCooldown;
 
         anim.SetTrigger("TanCong");
 
@@ -198,60 +176,17 @@ public class FlyEye : MonoBehaviour
         if (hitPlayer != null)
         {
             DieuKhienNhanVat p =
-                hitPlayer.GetComponent<DieuKhienNhanVat>();
+                hitPlayer.GetComponent
+                <DieuKhienNhanVat>();
 
             if (p != null)
             {
                 p.NhanSatThuong(damage);
             }
         }
-
-        Invoke(nameof(ResetAttack), 0.8f);
     }
 
-    void ResetAttack()
-    {
-        isAttacking = false;
-    }
-
-    // =========================
-    // TAKE DAMAGE
-    // =========================
-
-    public void TakeHit(int damage)
-    {
-        if (isDead) return;
-
-        currentHP -= damage;
-
-        anim.SetTrigger("BiThuong");
-
-        if (currentHP <= 0)
-        {
-            Die();
-        }
-    }
-
-    // =========================
-    // DEATH
-    // =========================
-
-    void Die()
-    {
-        isDead = true;
-
-        rb.linearVelocity = Vector2.zero;
-
-        GetComponent<Collider2D>().enabled = false;
-
-        anim.SetTrigger("Chet");
-
-        Destroy(gameObject, 2f);
-    }
-
-    // =========================
-    // FLIP
-    // =========================
+    // ================= FLIP ================= //
 
     void UpdateDirection(float dir)
     {
@@ -274,25 +209,20 @@ public class FlyEye : MonoBehaviour
 
         scale.x *= -1;
 
-        transform.localScale = scale;
+        transform.localScale =
+            scale;
     }
 
-    // =========================
-    // GIZMOS
-    // =========================
+    // ================= GIZMOS ================= //
 
     void OnDrawGizmosSelected()
     {
-        // detect range
-
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireSphere(
             transform.position,
             detectRange
         );
-
-        // attack range
 
         Gizmos.color = Color.yellow;
 
@@ -301,12 +231,11 @@ public class FlyEye : MonoBehaviour
             attackRange
         );
 
-        // patrol area
-
         Gizmos.color = Color.cyan;
 
         Gizmos.DrawWireCube(
             transform.position,
+
             new Vector3(
                 areaSize.x * 2,
                 areaSize.y * 2,
@@ -315,4 +244,3 @@ public class FlyEye : MonoBehaviour
         );
     }
 }
-

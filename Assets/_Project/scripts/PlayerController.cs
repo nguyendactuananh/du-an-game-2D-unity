@@ -1,126 +1,182 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
 
 public class DieuKhienNhanVat : MonoBehaviour
 {
     [Header("Chỉ số Sinh Tồn")]
     public int mauToiDa = 100;
+
     public int mauHienTai;
+
+    private bool isDead = false;
 
     [Header("Cấu hình di chuyển")]
     public float tocDo = 5f;
-    public float lucNhay = 25f; 
-    public bool isFacingRight = true; 
+
+    public float lucNhay = 25f;
+
+    public bool isFacingRight = true;
 
     [Header("Cấu hình mặt đất")]
-    public Transform checkDat;       // Transform đặt dưới chân nhân vật
-    public float banKinhCheck = 0.2f; // Bán kính vòng tròn kiểm tra
-    public LayerMask layerMatDat;    // Chỉ định layer nào là đất
-    private bool isGrounded;         // Cờ xác nhận đang đứng trên đất
+    public Transform checkDat;
+
+    public float banKinhCheck = 0.2f;
+
+    public LayerMask layerMatDat;
+
+    private bool isGrounded;
 
     [Header("Cấu hình Tấn công")]
-    public Transform diemTanCong;        // Điểm phát ra đòn chém 
-    public float banKinhTanCong = 0.5f;  // Độ rộng của đòn chém
-    public LayerMask layerQuaiVat;       // Chỉ định layer nào là quái vật
-    public int satThuongVukhi = 20;      // Sát thương mỗi nhát chém
+    public Transform diemTanCong;
+
+    public float banKinhTanCong = 0.5f;
+
+    public LayerMask layerQuaiVat;
+
+    public int satThuongVukhi = 20;
+
+    [Header("Cooldown Attack")]
+    public float attackCooldown = 0.4f;
+
+    private float attackTimer;
 
     [Header("Thành phần kết nối")]
-    public Animator anim;                // Hoạt hình của người chơi
-    public Animator kiemAnim;            // Hoạt hình của thanh kiếm
+    public Animator anim;
+
+    public Animator kiemAnim;
+
     private Rigidbody2D rb;
-    
-    // Biến lưu trữ
-    private float moveInput; 
+
+    // Input
+    private float moveInput;
+
+    // ================= START ================= //
 
     void Start()
     {
-        // Khởi tạo đầy máu khi bắt đầu game
         mauHienTai = mauToiDa;
-        
-        // Lấy Component tự động
+
         rb = GetComponent<Rigidbody2D>();
     }
 
+    // ================= UPDATE ================= //
+
     void Update()
     {
-        // Nếu đã chết thì không cho phép điều khiển nữa, dừng các xử lý bên dưới
-        if (mauHienTai <= 0) return;
+        if (isDead) return;
 
-        // Phân chia logic rõ ràng theo từng hàm
+        attackTimer -= Time.deltaTime;
+
         DocThongTinBanPhim();
+
         KiemTraChamDat();
+
         XuLyNhay();
+
         XuLyLatNhanVat();
+
         CaiDatHoatHinh();
+
         XuLyTanCong();
     }
 
+    // ================= FIXED UPDATE ================= //
+
     void FixedUpdate()
     {
-        // Nếu đã chết thì không di chuyển
-        if (mauHienTai <= 0) return;
+        if (isDead) return;
 
-        // FixedUpdate chuyên dùng để tính toán vật lý (Rigidbody)
         DiChuyenNhanVat();
     }
 
-    // ================= CÁC HÀM XỬ LÝ CHỨC NĂNG ================= //
+    // ================= INPUT ================= //
 
     private void DocThongTinBanPhim()
     {
         moveInput = 0f;
 
-        // An toàn kiểm tra xem có thiết bị bàn phím không
         if (Keyboard.current != null)
         {
-            // Di chuyển trái phải bằng A/D hoặc Mũi tên
-            if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
+            // Đi trái
+            if (
+                Keyboard.current.aKey.isPressed ||
+                Keyboard.current.leftArrowKey.isPressed
+            )
             {
-                moveInput = -1f; // Trục X âm
+                moveInput = -1f;
             }
-            else if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
+
+            // Đi phải
+            else if (
+                Keyboard.current.dKey.isPressed ||
+                Keyboard.current.rightArrowKey.isPressed
+            )
             {
-                moveInput = 1f;  // Trục X dương
+                moveInput = 1f;
             }
         }
     }
+
+    // ================= MOVE ================= //
 
     private void DiChuyenNhanVat()
     {
-        // Cập nhật vận tốc ngang, giữ nguyên vận tốc rơi tự do dọc (Y)
-        rb.linearVelocity = new Vector2(moveInput * tocDo, rb.linearVelocity.y);
+        rb.linearVelocity =
+            new Vector2(
+                moveInput * tocDo,
+                rb.linearVelocity.y
+            );
     }
+
+    // ================= GROUND CHECK ================= //
 
     private void KiemTraChamDat()
     {
-        // Vẽ một vòng tròn nhỏ dưới chân để xem có chạm vào Layer mặt đất không
         if (checkDat != null)
         {
-            isGrounded = Physics2D.OverlapCircle(checkDat.position, banKinhCheck, layerMatDat);
+            isGrounded =
+                Physics2D.OverlapCircle(
+                    checkDat.position,
+                    banKinhCheck,
+                    layerMatDat
+                );
         }
     }
 
+    // ================= JUMP ================= //
+
     private void XuLyNhay()
     {
-        if (Keyboard.current != null && isGrounded)
+        if (Keyboard.current == null) return;
+
+        if (!isGrounded) return;
+
+        if (
+            Keyboard.current.spaceKey.wasPressedThisFrame ||
+            Keyboard.current.upArrowKey.wasPressedThisFrame
+        )
         {
-            // Nhảy khi bấm Space hoặc Mũi tên lên và nhân vật đang đứng trên đất
-            if (Keyboard.current.spaceKey.wasPressedThisFrame || Keyboard.current.upArrowKey.wasPressedThisFrame)
+            rb.linearVelocity =
+                new Vector2(
+                    rb.linearVelocity.x,
+                    lucNhay
+                );
+
+            if (anim != null)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, lucNhay);
-                
-                if (anim != null)
-                {
-                    anim.SetTrigger("Nhay"); 
-                }
+                anim.SetTrigger("Nhay");
             }
         }
     }
 
+    // ================= FLIP ================= //
+
     private void XuLyLatNhanVat()
     {
-        // Lật mặt nhân vật dựa trên hướng di chuyển và trạng thái lật hiện tại
-        if ((moveInput > 0 && !isFacingRight) || (moveInput < 0 && isFacingRight))
+        if (
+            (moveInput > 0 && !isFacingRight) ||
+            (moveInput < 0 && isFacingRight)
+        )
         {
             ThucHienLat();
         }
@@ -130,126 +186,170 @@ public class DieuKhienNhanVat : MonoBehaviour
     {
         isFacingRight = !isFacingRight;
 
-        // Đảo ngược trục X của scale để lật hình ảnh mượt mà
-        Vector3 currentScale = transform.localScale;
+        Vector3 currentScale =
+            transform.localScale;
+
         currentScale.x *= -1;
-        transform.localScale = currentScale;
+
+        transform.localScale =
+            currentScale;
     }
+
+    // ================= ANIMATION ================= //
 
     private void CaiDatHoatHinh()
     {
         if (anim != null)
         {
-            // Tham số tốc độ di chuyển (luôn dương)
-            anim.SetFloat("dichuyen", Mathf.Abs(moveInput)); 
-            
-            // Tham số rớt/nhảy (nếu có dùng Blend Tree cho trục Y)
-            anim.SetFloat("vanTocY", rb.linearVelocity.y);
-            anim.SetBool("trenDat", isGrounded);
+            anim.SetFloat(
+                "dichuyen",
+                Mathf.Abs(moveInput)
+            );
+
+            anim.SetFloat(
+                "vanTocY",
+                rb.linearVelocity.y
+            );
+
+            anim.SetBool(
+                "trenDat",
+                isGrounded
+            );
         }
     }
 
+    // ================= ATTACK ================= //
+
     private void XuLyTanCong()
     {
-        // Lắng nghe phím J để tấn công
-        if (Keyboard.current != null && Keyboard.current.jKey.wasPressedThisFrame)
+        if (Keyboard.current == null) return;
+
+        // Cooldown
+        if (attackTimer > 0) return;
+
+        if (Keyboard.current.jKey.wasPressedThisFrame)
         {
-            // 1. Kích hoạt hoạt hình của NHÂN VẬT
+            attackTimer = attackCooldown;
+
+            // Animation player
             if (anim != null)
             {
-                anim.SetTrigger("TanCong"); 
+                anim.SetTrigger("TanCong");
             }
 
-            // 2. Kích hoạt hoạt hình của THANH KIẾM 
+            // Animation kiếm
             if (kiemAnim != null)
             {
-                kiemAnim.SetTrigger("Chem"); 
+                kiemAnim.SetTrigger("Chem");
             }
 
-            // 3. Thực hiện trừ máu quái vật
+            // Damage
             GaySatThuong();
         }
     }
 
     private void GaySatThuong()
     {
-        // Đảm bảo đã có điểm tấn công thì mới quét sát thương
-        if (diemTanCong != null)
-        {
-            // Quét vòng tròn để tìm tất cả quái vật nằm trong tầm chém
-            Collider2D[] cacKeDichTrungDon = Physics2D.OverlapCircleAll(diemTanCong.position, banKinhTanCong, layerQuaiVat);
+        if (diemTanCong == null) return;
 
-            // Gây sát thương cho từng con quái vật trúng đòn
-            foreach(Collider2D keDich in cacKeDichTrungDon)
+        // Quét tất cả enemy trong layer QuaiVat
+        Collider2D[] cacKeDichTrungDon =
+            Physics2D.OverlapCircleAll(
+                diemTanCong.position,
+                banKinhTanCong,
+                layerQuaiVat
+            );
+
+        foreach (Collider2D keDich in cacKeDichTrungDon)
+        {
+            // Lấy script lớp CHA
+            QuaiVat quaiVat =
+                keDich.GetComponent<QuaiVat>();
+
+            if (quaiVat != null)
             {
-                // Lấy script QuaiVat gắn trên kẻ địch
-                QuaiVat quaiVat = keDich.GetComponent<QuaiVat>();
-                
-                // Đảm bảo kẻ địch có script này thì mới gọi hàm nhận sát thương
-                if (quaiVat != null)
-                {
-                    quaiVat.NhanSatThuong(satThuongVukhi);
-                }
+                quaiVat.NhanSatThuong(
+                    satThuongVukhi
+                );
             }
         }
     }
 
-    // ================= HÀM BỊ QUÁI VẬT ĐÁNH ================= //
-    
+    // ================= TAKE DAMAGE ================= //
+
     public void NhanSatThuong(int satThuong)
     {
+        if (isDead) return;
+
         mauHienTai -= satThuong;
-        Debug.Log("Người chơi bị đánh! Máu còn: " + mauHienTai);
+
+        Debug.Log(
+            "Người chơi bị đánh! Máu còn: "
+            + mauHienTai
+        );
+
+        // Animation hit
+        if (anim != null)
+        {
+            anim.SetTrigger("BiThuong");
+        }
 
         if (mauHienTai <= 0)
         {
             Chet();
         }
-        else
-        {
-            if (anim != null) anim.SetTrigger("BiThuong");
-        }
     }
+
+    // ================= DIE ================= //
 
     private void Chet()
-    {
-        Debug.Log("Game Over! Người chơi đã gục ngã.");
-        if (anim != null) anim.SetTrigger("Chet");
+{
+    Debug.Log("Game Over!");
 
-        // Dừng mọi lực di chuyển đang có
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero;
-        }
-        
-        // Tắt BoxCollider2D để quái không đánh vào cái xác nữa
-        Collider2D coll = GetComponent<Collider2D>();
-        if (coll != null)
-        {
-            coll.enabled = false;
-        }
-        
-        // Tắt script này đi để người chơi không thể bấm phím gì nữa
-        this.enabled = false; 
+    if (anim != null)
+        anim.SetTrigger("Chet");
+
+    if (rb != null)
+        rb.linearVelocity = Vector2.zero;
+
+    Collider2D coll = GetComponent<Collider2D>();
+    if (coll != null)
+        coll.enabled = false;
+
+    this.enabled = false;
+
+    Invoke(nameof(GoGameOver), 2f);
+}
+
+    private void GoGameOver()
+    {
+        GameManager.instance.GameOver();
     }
 
-    // ================= HÀM PHỤ TRỢ (VẼ HÌNH GIZMOS) ================= //
-    
-    // Hàm phụ trợ giúp vẽ vòng tròn kiểm tra đất trong màn hình Scene để dễ căn chỉnh
+    // ================= GIZMOS ================= //
+
     private void OnDrawGizmosSelected()
     {
-        // Vẽ vòng tròn dưới chân (màu đỏ)
+        // Ground Check
         if (checkDat != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(checkDat.position, banKinhCheck);
+
+            Gizmos.DrawWireSphere(
+                checkDat.position,
+                banKinhCheck
+            );
         }
 
-        // Vẽ vòng tròn tầm đánh của kiếm (màu vàng)
+        // Attack Range
         if (diemTanCong != null)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(diemTanCong.position, banKinhTanCong);
+
+            Gizmos.DrawWireSphere(
+                diemTanCong.position,
+                banKinhTanCong
+            );
         }
     }
 }

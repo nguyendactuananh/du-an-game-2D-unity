@@ -1,49 +1,49 @@
 using UnityEngine;
 
-public class Skeleton : MonoBehaviour
+public class Skeleton : QuaiVat
 {
-    [Header("Stats")]
-    public int maxHP = 50;
-    private int currentHP;
-
     [Header("Movement")]
     public float speed = 2f;
+
     private bool movingRight = true;
 
     [Header("Ground Check")]
     public Transform groundCheck;
+
     public LayerMask groundLayer;
+
     public float checkDistance = 0.5f;
 
     [Header("Player Detect")]
     public Transform player;
+
     public float detectRange = 5f;
+
     public float attackRange = 1.5f;
 
     [Header("Attack")]
     public Transform attackPoint;
+
     public float attackRadius = 0.8f;
+
     public LayerMask playerLayer;
+
     public int damage = 10;
+
     public float attackCooldown = 2f;
 
     private float attackTimer;
 
-    private Rigidbody2D rb;
-    private Animator anim;
-
-    private bool isDead = false;
     private bool isAttacking = false;
 
-    void Start()
+    protected override void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-
-        currentHP = maxHP;
+        base.Start();
 
         GameObject p =
-            GameObject.FindGameObjectWithTag("Player");
+            GameObject.FindGameObjectWithTag(
+                "Player"
+            );
 
         if (p != null)
         {
@@ -90,9 +90,14 @@ public class Skeleton : MonoBehaviour
         UpdateAnimation();
     }
 
+    // ================= PATROL ================= //
+
     void Patrol()
     {
-        float dir = movingRight ? 1 : -1;
+        if (isAttacking) return;
+
+        float dir =
+            movingRight ? 1 : -1;
 
         rb.linearVelocity =
             new Vector2(
@@ -122,12 +127,15 @@ public class Skeleton : MonoBehaviour
         }
     }
 
+    // ================= CHASE ================= //
+
     void ChasePlayer()
     {
         if (isAttacking) return;
 
         float dir =
-            player.position.x > transform.position.x
+            player.position.x >
+            transform.position.x
             ? 1
             : -1;
 
@@ -146,6 +154,8 @@ public class Skeleton : MonoBehaviour
             Flip();
         }
     }
+
+    // ================= ATTACK ================= //
 
     void Attack()
     {
@@ -173,7 +183,8 @@ public class Skeleton : MonoBehaviour
         if (hitPlayer != null)
         {
             DieuKhienNhanVat p =
-                hitPlayer.GetComponent<DieuKhienNhanVat>();
+                hitPlayer.GetComponent
+                <DieuKhienNhanVat>();
 
             if (p != null)
             {
@@ -189,50 +200,32 @@ public class Skeleton : MonoBehaviour
         isAttacking = false;
     }
 
+    // ================= FLIP ================= //
+
     void Flip()
     {
         movingRight = !movingRight;
 
-        Vector3 scale = transform.localScale;
+        Vector3 scale =
+            transform.localScale;
+
         scale.x *= -1;
+
         transform.localScale = scale;
     }
+
+    // ================= ANIMATION ================= //
 
     void UpdateAnimation()
     {
         anim.SetBool(
             "DiChuyen",
-            Mathf.Abs(rb.linearVelocity.x) > 0.1f
+            Mathf.Abs(rb.linearVelocity.x)
+            > 0.1f
         );
     }
 
-    public void TakeHit(int damage)
-    {
-        if (isDead) return;
-
-        currentHP -= damage;
-
-        anim.SetTrigger("BiThuong");
-
-        if (currentHP <= 0)
-        {
-            Die();
-        }
-    }
-
-    void Die()
-    {
-        isDead = true;
-
-        rb.linearVelocity = Vector2.zero;
-        rb.bodyType = RigidbodyType2D.Kinematic;
-
-        GetComponent<Collider2D>().enabled = false;
-
-        anim.SetTrigger("Chet");
-
-        Destroy(gameObject, 2f);
-    }
+    // ================= GIZMOS ================= //
 
     void OnDrawGizmosSelected()
     {
@@ -243,7 +236,8 @@ public class Skeleton : MonoBehaviour
             Gizmos.DrawLine(
                 groundCheck.position,
                 groundCheck.position +
-                Vector3.down * checkDistance
+                Vector3.down *
+                checkDistance
             );
         }
 
