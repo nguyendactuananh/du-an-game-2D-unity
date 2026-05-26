@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "du-an-game-2D-unity-github.slnx",
+    "dotnet.defaultSolution": "game_diem_A.slnx",
     "dotnet.preferCSharpExtension": true
 }
