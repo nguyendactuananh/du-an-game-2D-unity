@@ -300,26 +300,46 @@ public class DieuKhienNhanVat : MonoBehaviour
         }
     }
 
+    // ================= HOI MAU (HEAL) ================= //
+
+    public void HoiMau(int luongMauHoi)
+    {
+        if (isDead) return; // Nếu đã chết thì không cho hồi máu nữa
+
+        mauHienTai += luongMauHoi;
+        
+        // Đảm bảo máu không vượt quá mức tối đa
+        if (mauHienTai > mauToiDa)
+        {
+            mauHienTai = mauToiDa;
+        }
+        
+        Debug.Log("Đã hồi máu! Máu hiện tại: " + mauHienTai);
+        // Tại đây bạn có thể gọi thêm code cập nhật thanh máu UI nếu có
+    }
+
     // ================= DIE ================= //
 
     private void Chet()
-{
-    Debug.Log("Game Over!");
+    {
+        Debug.Log("Game Over!");
 
-    if (anim != null)
-        anim.SetTrigger("Chet");
+        isDead = true; // Đánh dấu trạng thái đã chết để khóa mọi thao tác
 
-    if (rb != null)
-        rb.linearVelocity = Vector2.zero;
+        if (anim != null)
+            anim.SetTrigger("Chet");
 
-    Collider2D coll = GetComponent<Collider2D>();
-    if (coll != null)
-        coll.enabled = false;
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
 
-    this.enabled = false;
+        Collider2D coll = GetComponent<Collider2D>();
+        if (coll != null)
+            coll.enabled = false;
 
-    Invoke(nameof(GoGameOver), 2f);
-}
+        this.enabled = false;
+
+        Invoke(nameof(GoGameOver), 2f);
+    }
 
     private void GoGameOver()
     {
