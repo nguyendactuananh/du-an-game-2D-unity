@@ -1,31 +1,43 @@
 fileFormatVersion: 2
-guid: e3f2d5bcad4a3e545acc310c93f19bb5
+guid: 208c89e922287ac4fb58d51d2c1304ea
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1580441614216361810
-    second: Enemy3-Fly_0
+      213: 1777488443767830289
+    second: Enemy3-AttackSmashStart_0
   - first:
-      213: 3768569184673848441
-    second: Enemy3-Fly_1
+      213: -7833720409454760587
+    second: Enemy3-AttackSmashStart_1
   - first:
-      213: 4554274250909831551
-    second: Enemy3-Fly_2
+      213: -6161637431825811661
+    second: Enemy3-AttackSmashStart_2
   - first:
-      213: -4082173696017322263
-    second: Enemy3-Fly_3
+      213: 3404643750862097984
+    second: Enemy3-AttackSmashStart_3
   - first:
-      213: -77624808259697874
-    second: Enemy3-Fly_4
+      213: 3942464870373950438
+    second: Enemy3-AttackSmashStart_4
   - first:
-      213: -804159970561975091
-    second: Enemy3-Fly_5
+      213: 1959199941604669006
+    second: Enemy3-AttackSmashStart_5
   - first:
-      213: 1418816952933761602
-    second: Enemy3-Fly_6
+      213: 7385760228005355208
+    second: Enemy3-AttackSmashStart_6
   - first:
-      213: -529208579966824279
-    second: Enemy3-Fly_7
+      213: -6713818773749960494
+    second: Enemy3-AttackSmashStart_7
+  - first:
+      213: -2524830039376511021
+    second: Enemy3-AttackSmashStart_8
+  - first:
+      213: -2023563897902934879
+    second: Enemy3-AttackSmashStart_9
+  - first:
+      213: 5447888471450109741
+    second: Enemy3-AttackSmashStart_10
+  - first:
+      213: 8819060033696377984
+    second: Enemy3-AttackSmashStart_11
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -121,7 +133,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy3-Fly_0
+      name: Enemy3-AttackSmashStart_0
       rect:
         serializedVersion: 2
         x: 0
@@ -136,14 +148,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2577c9b464bdee510800000000000000
-      internalID: 1580441614216361810
+      spriteID: 117b4237258eaa810800000000000000
+      internalID: 1777488443767830289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy3-Fly_1
+      name: Enemy3-AttackSmashStart_1
       rect:
         serializedVersion: 2
         x: 64
@@ -158,14 +170,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 97cd7fbe4b5ac4430800000000000000
-      internalID: 3768569184673848441
+      spriteID: 57da8bcdac8094390800000000000000
+      internalID: -7833720409454760587
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy3-Fly_2
+      name: Enemy3-AttackSmashStart_2
       rect:
         serializedVersion: 2
         x: 128
@@ -180,14 +192,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f7150373d48043f30800000000000000
-      internalID: 4554274250909831551
+      spriteID: 337b549c6677d7aa0800000000000000
+      internalID: -6161637431825811661
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy3-Fly_3
+      name: Enemy3-AttackSmashStart_3
       rect:
         serializedVersion: 2
         x: 192
@@ -202,14 +214,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9eea179d6a43957c0800000000000000
-      internalID: -4082173696017322263
+      spriteID: 04e83ece379bf3f20800000000000000
+      internalID: 3404643750862097984
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy3-Fly_4
+      name: Enemy3-AttackSmashStart_4
       rect:
         serializedVersion: 2
         x: 256
@@ -224,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e234cede5a83ceef0800000000000000
-      internalID: -77624808259697874
+      spriteID: 6e3881a59e276b630800000000000000
+      internalID: 3942464870373950438
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy3-Fly_5
+      name: Enemy3-AttackSmashStart_5
       rect:
         serializedVersion: 2
         x: 320
@@ -246,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dcc901474cc07d4f0800000000000000
-      internalID: -804159970561975091
+      spriteID: e46ff4377f9703b10800000000000000
+      internalID: 1959199941604669006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy3-Fly_6
+      name: Enemy3-AttackSmashStart_6
       rect:
         serializedVersion: 2
         x: 384
@@ -268,14 +280,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2424be06086a0b310800000000000000
-      internalID: 1418816952933761602
+      spriteID: 8ce9772cbcd7f7660800000000000000
+      internalID: 7385760228005355208
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy3-Fly_7
+      name: Enemy3-AttackSmashStart_7
       rect:
         serializedVersion: 2
         x: 448
@@ -290,8 +302,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a01df2b99fd7a8f0800000000000000
-      internalID: -529208579966824279
+      spriteID: 2d0f8488569b3d2a0800000000000000
+      internalID: -6713818773749960494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy3-AttackSmashStart_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3df3ab0d47006fcd0800000000000000
+      internalID: -2524830039376511021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy3-AttackSmashStart_9
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a4d03d2b5bdae3e0800000000000000
+      internalID: -2023563897902934879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy3-AttackSmashStart_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d27cabc53b9ca9b40800000000000000
+      internalID: 5447888471450109741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy3-AttackSmashStart_11
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08c21511068936a70800000000000000
+      internalID: 8819060033696377984
       vertices: []
       indices: 
       edges: []
@@ -300,7 +400,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 81540013d6638f94fabd7bd464fcab48
+    spriteID: 13e54d9bb52a6e94d8c55147243e0677
     internalID: 0
     vertices: []
     indices: 
@@ -312,14 +412,18 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Enemy3-Fly_0: 1580441614216361810
-      Enemy3-Fly_1: 3768569184673848441
-      Enemy3-Fly_2: 4554274250909831551
-      Enemy3-Fly_3: -4082173696017322263
-      Enemy3-Fly_4: -77624808259697874
-      Enemy3-Fly_5: -804159970561975091
-      Enemy3-Fly_6: 1418816952933761602
-      Enemy3-Fly_7: -529208579966824279
+      Enemy3-AttackSmashStart_0: 1777488443767830289
+      Enemy3-AttackSmashStart_1: -7833720409454760587
+      Enemy3-AttackSmashStart_10: 5447888471450109741
+      Enemy3-AttackSmashStart_11: 8819060033696377984
+      Enemy3-AttackSmashStart_2: -6161637431825811661
+      Enemy3-AttackSmashStart_3: 3404643750862097984
+      Enemy3-AttackSmashStart_4: 3942464870373950438
+      Enemy3-AttackSmashStart_5: 1959199941604669006
+      Enemy3-AttackSmashStart_6: 7385760228005355208
+      Enemy3-AttackSmashStart_7: -6713818773749960494
+      Enemy3-AttackSmashStart_8: -2524830039376511021
+      Enemy3-AttackSmashStart_9: -2023563897902934879
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
