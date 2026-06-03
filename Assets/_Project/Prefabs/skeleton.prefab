@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 3456869491617618306}
   - component: {fileID: 355879085614982693}
   m_Layer: 6
-  m_Name: skeleton_0
+  m_Name: skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -138,7 +138,7 @@ Animator:
   m_GameObject: {fileID: 3262201872211845991}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7464f3d9fdfa8e041bdafc7dc9be7c18, type: 2}
+  m_Controller: {fileID: 9100000, guid: c13662ac5554d6c4a808a42b1da6b5b9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ec1113c7bcdd342a404038f3c41986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Skeleton
-  maxHP: 3
+  mauToiDa: 5
   speed: 2
   groundCheck: {fileID: 3936955725930273760}
   groundLayer:
@@ -250,7 +250,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  damage: 1
+  damage: 10
   attackCooldown: 2
 --- !u!1 &8371359238213452049
 GameObject:
