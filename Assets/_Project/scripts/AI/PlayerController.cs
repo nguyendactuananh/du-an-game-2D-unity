@@ -330,7 +330,11 @@ public class DieuKhienNhanVat : MonoBehaviour
             anim.SetTrigger("Chet");
 
         if (rb != null)
+        {
             rb.linearVelocity = Vector2.zero;
+            rb.gravityScale = 0f;                    // Ngừng lực hút trọng lực để nhân vật không rơi tiếp
+            rb.bodyType = RigidbodyType2D.Kinematic; // Khóa chuyển động vật lý
+        }
 
         Collider2D coll = GetComponent<Collider2D>();
         if (coll != null)
@@ -343,7 +347,15 @@ public class DieuKhienNhanVat : MonoBehaviour
 
     private void GoGameOver()
     {
-        GameManager.instance.GameOver();
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.GameOver();
+        }
+        else
+        {
+            // Dự phòng nếu test trực tiếp scene màn chơi trong Editor mà không có GameManager
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
+        }
     }
 
     // ================= GIZMOS ================= //

@@ -6,7 +6,15 @@ public class VictoryZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.instance.Victory();
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.Victory();
+            }
+            else
+            {
+                // Dự phòng nếu chạy thử trực tiếp scene màn chơi mà không có GameManager
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Victory");
+            }
         }
     }
 
