@@ -166,6 +166,8 @@ public class DieuKhienNhanVat : MonoBehaviour
             {
                 anim.SetTrigger("Nhay");
             }
+
+            AudioManager.Instance?.PlayJumpSound();
         }
     }
 
@@ -242,7 +244,7 @@ public class DieuKhienNhanVat : MonoBehaviour
             {
                 kiemAnim.SetTrigger("Chem");
             }
-
+            AudioManager.Instance?.PlayAttackSound();
             // Damage
             GaySatThuong();
         }
@@ -283,6 +285,8 @@ public class DieuKhienNhanVat : MonoBehaviour
 
         mauHienTai -= satThuong;
 
+        AudioManager.Instance?.PlayTakeHitSound();
+
         Debug.Log(
             "Người chơi bị đánh! Máu còn: "
             + mauHienTai
@@ -322,6 +326,8 @@ public class DieuKhienNhanVat : MonoBehaviour
 
     private void Chet()
     {
+        AudioManager.Instance?.PlayDieSound();
+
         Debug.Log("Game Over!");
 
         isDead = true; // Đánh dấu trạng thái đã chết để khóa mọi thao tác

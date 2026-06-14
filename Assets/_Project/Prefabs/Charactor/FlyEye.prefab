@@ -192,13 +192,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de4999c42311a3498976d9be1f75087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyEye
-  maxHP: 30
+  mauToiDa: 20
   speed: 1.5
   areaSize: {x: 2.3, y: 1}
   player: {fileID: 0}
   detectRange: 1.7
   attackRange: 1.3
-  damage: 1
+  damage: 5
   attackCooldown: 1.5
   playerLayer:
     serializedVersion: 2

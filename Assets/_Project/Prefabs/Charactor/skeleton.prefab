@@ -235,8 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ec1113c7bcdd342a404038f3c41986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Skeleton
-  mauToiDa: 5
-  speed: 2
+  mauToiDa: 20
+  speed: 1.25
   groundCheck: {fileID: 3936955725930273760}
   groundLayer:
     serializedVersion: 2
@@ -250,8 +250,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  damage: 10
-  attackCooldown: 2
+  damage: 5
+  attackCooldown: 1
 --- !u!1 &8371359238213452049
 GameObject:
   m_ObjectHideFlags: 0

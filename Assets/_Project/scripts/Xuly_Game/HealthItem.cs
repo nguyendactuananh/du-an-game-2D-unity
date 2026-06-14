@@ -7,19 +7,20 @@ public class HealthItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // 1. Kiểm tra xem người chạm vào có phải là Player không
         if (collision.CompareTag("Player"))
         {
-            // 2. Tìm script DieuKhienNhanVat trên người chơi đó
-            // Lưu ý: Thay "DieuKhienNhanVat" bằng đúng tên class script nhân vật của bạn
-            DieuKhienNhanVat playerScript = collision.GetComponent<DieuKhienNhanVat>();
+            DieuKhienNhanVat playerScript =
+                collision.GetComponent<DieuKhienNhanVat>();
 
             if (playerScript != null)
             {
-                // 3. Gọi hàm bơm máu
+                // Phát âm thanh nhặt vật phẩm
+                AudioManager.Instance?.PlayPickupSound();
+
+                // Hồi máu
                 playerScript.HoiMau(healthAmount);
 
-                // 4. Tiêu hủy vật phẩm khỏi Scene sau khi ăn xong
+                // Xóa vật phẩm
                 Destroy(gameObject);
             }
         }
